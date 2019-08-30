@@ -1,0 +1,92 @@
+class VignereCipher : Cipher<string> {
+  //private members
+  private string key;
+  private int keyPos;
+  private int keyLen;
+  
+  //private methods
+  char wrap(char c){
+	bool upper = isUpper(c);
+	c = toUpper(c);
+	if(c < 'A'){
+	  c = 'Z' - ('A' - c) + 1; //Equivalent to c+=26
+	}
+	else if(c > 'Z') {
+	  c = 'A' + (c - 'Z') - 1; //Equivalent to c-=26
+	}
+	if(!upper){
+      c = toLower(c);
+	}
+	return c;
+  }
+  
+  //public methods
+  VignereCipher(){
+    key = "";
+    keyLen = 0;
+    keyPos = 0;
+  }
+  
+  VignereCipher(string k){
+	if(!k.isEmpty() && k.isAlpha()){
+	  key = k;
+      keyLen = key.Size();
+	}
+	else {
+	  key = "";
+      keyLen = 0;
+	}
+	keyPos = 0;
+  }
+  
+  string getKey(){
+    return key;
+  }
+  
+  bool setKey(string k){
+    if(!k.isEmpty() && k.isAlpha()){
+	  key = k;
+	  keyPos = 0;
+	  return true;
+	}
+	else{
+	  return false;
+	}
+  }
+  
+  int getKeyPosition(){
+    return keyPos;
+  }
+  
+  void resetKeyPosition(){
+    keyPos = 0;
+  }
+  
+  public char encodeChar(char c){
+    c = wrap(c + key[keyPos]);
+	keyPos = (keyPos+1)%keyLen;
+  }
+  
+  public char decodeChar(char c){
+    c = wrap(c - key[keyPos]);
+	keyPos = (keyPos+1)%keyLen;
+  }
+  
+  public string encodeString(string s){
+    int len = s.size();
+	string out;
+	for(int i = 0; i < len; i++){
+	  out[i] = encodeChar(s[i]);
+	}
+	return out;
+  }
+
+  public string decodeString(string s){
+    int len = s.size();
+	string out;
+	for(int i = 0; i < len; i++){
+	  out[i] = decodeChar(s[i]);
+	}
+	return out;
+  }
+}

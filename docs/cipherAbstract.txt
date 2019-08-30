@@ -1,0 +1,23 @@
+abstract class Cipher<T> {
+  //private members
+  private <T> key
+
+  //private methods
+  
+  //public methods
+  Cipher<T>(){}
+  
+  Cipher<T>(T key){}
+  
+  <T> getKey(){}
+  
+  bool setKey(){}
+  
+  public char encodeChar(char c){}
+  
+  public char decodeChar(char c){}
+  
+  public string encodeString(string s){}
+
+  public string decodeString(string s){}
+}

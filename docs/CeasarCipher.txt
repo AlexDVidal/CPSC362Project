@@ -1,0 +1,66 @@
+class CeasarCipher : Cipher<int> {
+  //private members
+  private <int> key
+
+  //private methods
+  char wrap(char c){
+	bool upper = isUpper(c);
+	c = toUpper(c);
+	if(c < 'A'){
+	  c = 'Z' - ('A' - c) + 1; //Equivalent to c+=26
+	}
+	else if(c > 'Z') {
+	  c = 'A' + (c - 'Z') - 1; //Equivalent to c-=26
+	}
+	if(!upper){
+	  c = toLower(c);
+	}
+	return c;
+  }
+  
+  //public methods
+  CeasarCipher(){
+	this.setKey(0);
+  }
+  
+  CeasarCipher(int k){
+	this.setKey(k);
+  }
+  
+  int getKey(){
+    return key;
+  }
+  
+  bool setKey(int k){
+    key = k%26;
+	return true;
+  }
+  
+  public char encodeChar(char c){
+	return wrap(c + key);
+  }
+  
+  public char decodeChar(char c){
+	return wrap(c - key);
+  }
+  
+  public string encodeString(string s){
+	int len = s.size();
+	string out;
+	
+	for(int i = 0; i < len; i++){
+		out[i] = encodeChar(s[i]);
+	}
+	return out;
+  }
+
+  public string decodeString(string s){
+	int len = s.size();
+	string out;
+	
+	for(int i = 0; i < len; i++){
+		out[i] = decodChar(s[i]);
+	}
+	return out;
+  }
+}
