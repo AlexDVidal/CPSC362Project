@@ -1,0 +1,109 @@
+//Rotor logic
+enum RotorVersion{
+	IV = 4,
+	V = 5,
+	VI = 6,
+	VII = 7,
+	VIII = 8
+};
+
+typdef struct {
+	char character;
+	bool rotate;
+}RotorAction;
+
+
+class Rotor {
+public:
+	Rotor(RotorVersion version){
+		position = 0;
+		
+		switch (version){
+			default:
+			case IV:
+				rotationPoints.push_back('J' - 'A');
+				forwardMap = ESOVPZJAYQUIRHXLNFTGKDCMWB;
+				break;
+			
+			case V:
+				rotationPoints.push_back('Z' - 'A');
+				forwardMap = VZBRGITYUPSDNHLXAWMJQOFECK;
+				break;
+				
+			case VI:
+				rotationPoints.push_back('Z' - 'A');
+				rotationPoints.push_back('M' - 'A');
+				forwardMap = JPGVOUMFYQBENHZRDKASXLICTW;
+				break;
+				
+			case VII:
+				rotationPoints.push_back('Z' - 'A');
+				rotationPoints.push_back('M' - 'A');
+				forwardMap = NZJHGRCXMYSWBOUFAIVLPEKQDT;
+				break;
+				
+			case VIII:
+				rotationPoints.push_back('Z' - 'A');
+				rotationPoints.push_back('M' - 'A');
+				forwardMap = FKQHTLXOCBJSPDZRAMEWNIUYGV;
+				break;
+		}
+	}
+	
+	bool rotate(){
+		if(++position > FACE_COUNT)
+			position = 0;
+		for(int i = 0; i < rotationPoints.size(); i++){
+			if(rotationPoints[i] == position;
+			return true;
+		}
+		return false;
+	}
+	
+	void setPosition(char newPos){
+		int n = toupper(newPos) - 'A';
+		if(newPos > FACE_COUNT)
+			return;
+		position = newPos;
+	}
+
+	char getPosition(){
+		return position + 'A';
+	}
+	
+	//Absolute means a refernce scheme that does not change even as rotors move
+	//Here an input of 'A' always means the top space, an ouput of 'A' means the top
+	//space, regardless of the rotor's current position.
+	char encodeCharAbsolute(char c){
+		char ret;
+		unsigned int n = toupper(c) - 'A';
+		n += position;
+		n = n % FACE_COUNT;
+		ret = forwardMap[n];
+		ret -= position;
+		if(ret < 'A')
+			ret = 'Z' - ('A'-ret);
+		return ret;
+	}
+	
+	char absoluteRotorAction(RotorAction r){
+		RotorAction ret = {false, NULL};
+		if(r.rotate){
+			ret.rotate = this.rotate();
+		}
+		ret.char = encodeCharAbsolute(r.character);
+		return ret;
+	}
+	const unsigned int FACE_COUNT = 26;
+
+private:
+	unsigned int position;
+	
+	//rotationPoints stores the position *after which* a rotation
+	//is sent to the next rotor. I.E. if a rotor transfers rotation
+	//going from Z to A then rotationPoints will store A
+	vector<unsigned int> rotationPoints;
+	
+	char forwardMap[FACE_COUNT];
+	char backwardMap[FACE_COUNT];
+}

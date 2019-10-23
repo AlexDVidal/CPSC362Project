@@ -1,0 +1,117 @@
+#include <stl.h>
+#define MAP_SIZE 26
+
+class EnigmaSwitchboard {
+	private:
+	int numPlugs;
+	dictionary<char, char> plugs;
+	
+	public:
+	EnigmaSwitchboard(){}
+	
+	bool addPlug(char a, char b){
+		if(plugs.has(a))
+			return false;
+		plugs.add(a,b);
+		plugs.add(b,a);
+		numPlugs++;
+		return true;
+	}
+	
+	bool removePlug(char a, char b){
+		if(!plugs.has(a))
+			return false;
+		plugs.remove(a);
+		plugs.remove(b);
+		plugs--;
+		return true;
+	}
+	
+	int getNumPlugs(){
+		return numPlugs;
+	}
+	
+	void resetPlugs(){
+		plugs.clear();
+		numPlugs = 0;
+	}
+	
+	void getPlugs(){
+		return plugs;
+	}
+	
+	char swapChar(char c){
+		if(plugs.has(c))
+			return plugs.get(c);
+		return c;
+	}
+	
+	string swapString(string s){
+		int len = s.size();
+		string out;
+		for(int i = 0; i < len; i++)
+			out[i] = swapChar(s[i]);
+	}
+}
+
+class EnigmaRotor{
+	private:
+	const map rMap;
+	int position;
+	
+	public:
+	EnigmaRotor(map newMap, int pos){
+		rMap = newMap;
+		position = pos;
+	}
+	
+	int getPosition(){
+		return position;
+	}
+	
+	bool setPosition(int pos){
+		if (pos >= 0 && pos <= MAP_SIZE){
+			position = pos;
+			return true;
+		}
+		return false;
+	}
+	
+	bool rotate(){
+		if (++pos > MAP_SIZE)
+			pos = 0;
+		if(pos == rotatePoint + 1)
+			return true;
+		return false;
+	}
+}
+
+class EnigmaKey {
+	public vector<EnigmaRotor>;
+	
+}
+
+
+class EnigmaCipher : Cipher<EnigmaKey> {
+  //private members
+  private <EnigmaKey> key
+
+  //private methods
+  
+  //public methods
+  Cipher<T>(){}
+  
+  Cipher<T>(T key){}
+  
+  <T> getKey(){}
+  
+  bool setKey(){}
+  
+  public char encodeChar(char c){}
+  
+  public char decodeChar(char c){}
+  
+  public string encodeString(string s){}
+
+  public string decodeString(string s){}
+}
