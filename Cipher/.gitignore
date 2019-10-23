@@ -1,0 +1,11 @@
+# Project directories we shouldn't track
+/Binaries
+/DerivedDataCache
+/Intermediate
+/Saved
+
+# Project files we shoudln't save
+*.sln
+*.sdf
+*.suo
+
