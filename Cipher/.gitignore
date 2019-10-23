@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Project directories we shouldn't track
 /Binaries
 /DerivedDataCache
@@ -8,4 +9,3 @@
 *.sln
 *.sdf
 *.suo
-
