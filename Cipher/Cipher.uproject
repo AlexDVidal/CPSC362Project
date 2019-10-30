@@ -3,5 +3,15 @@
 	"EngineAssociation": "4.23",
 	"Category": "",
 	"Description": "",
-	"Enterprise": true
+	"Enterprise": true,
+	"Modules": [
+		{
+			"Name": "Cipher",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	]
 }
